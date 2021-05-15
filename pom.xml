@@ -104,11 +104,6 @@
             <version>${freemark.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>com.pingan.openbank</groupId>
-            <artifactId>api-sdk</artifactId>
-            <version>1.0.5</version>
-        </dependency>
 
     </dependencies>
 
