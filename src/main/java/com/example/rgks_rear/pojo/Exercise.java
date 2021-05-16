@@ -85,5 +85,20 @@ public class Exercise implements Serializable {
      */
     private Date modifiedTime;
 
-
+    public Exercise(Long exerciseId,String title,Long teacherId,
+             String url,String content,Long studentId,
+             Long isFinished,Long isDeleted,Long typeOfCode,String code,Date createTime,Date modifiedTime){
+        this.exerciseId=exerciseId;
+        this.title=title;
+        this.teacherId=teacherId;
+        this.url=url;
+        this.content=content;
+        this.studentId=studentId;
+        this.isFinished=isFinished;
+        this.isDeleted=isDeleted;
+        this.typeOfCode=typeOfCode;
+        this.code=code;
+        this.createTime=createTime;
+        this.modifiedTime=modifiedTime;
+    }
 }

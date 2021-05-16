@@ -8,11 +8,13 @@
         <result column="content" property="content" />
         <result column="reply_id" property="replyId" />
         <result column="receive_id" property="receiveId" />
+        <result column="comment_type" property="commentType" />
+        <result column="exercise_id" property="exerciseId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        comment_id, content, reply_id, receive_id
+        comment_id, content, reply_id, receive_id,comment_type,exercise_id
     </sql>
 
 </mapper>

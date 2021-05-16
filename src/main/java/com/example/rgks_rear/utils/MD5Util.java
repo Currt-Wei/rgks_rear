@@ -1,4 +1,4 @@
-package com.example.rgks_rear.utils;
+package com.example.rgks_rear.Utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.stereotype.Component;
