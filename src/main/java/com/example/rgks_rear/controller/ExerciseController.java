@@ -8,7 +8,9 @@ import com.example.rgks_rear.common.Constant;
 import com.example.rgks_rear.dto.*;
 import com.example.rgks_rear.mapper.ExerciseMapper;
 import com.example.rgks_rear.pojo.Exercise;
+import com.example.rgks_rear.pojo.User;
 import com.example.rgks_rear.service.IExerciseService;
+import com.example.rgks_rear.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +32,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/exercise")
 public class ExerciseController {
+
+    @Autowired
+    private IUserService userService;
 
     @Autowired
     IExerciseService exerciseService;
@@ -98,5 +103,22 @@ public class ExerciseController {
         q.setMsg(Constant.MsgQuerySuccess);
         q.setRespCode(Constant.QuerySuccess);
         return q;
+    }
+
+    @PostMapping("invite")
+    public InviteDTO Invite(String email,Long exerciseId){
+        User student=userService.lambdaQuery().eq(User::getEmail,email).one();
+        Exercise exercise=exerciseService.getById(exerciseId);
+        exercise.setStudentId(student.getUserId());
+        boolean success=exerciseService.saveOrUpdate(exercise);
+        InviteDTO inviteDTO=new InviteDTO();
+        if(success){
+            inviteDTO.setRespCode("200");
+            inviteDTO.setMsg("邀请成功!");
+            return inviteDTO;
+        }
+        inviteDTO.setRespCode("400");
+        inviteDTO.setMsg("邀请失败,请确认邀请人的邮箱是否存在!");
+        return inviteDTO;
     }
 }
