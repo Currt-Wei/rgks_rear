@@ -1,0 +1,81 @@
+package com.example.rgks_rear.controller;
+
+
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
+import com.example.rgks_rear.common.Constant;
+import com.example.rgks_rear.dto.DeleteExerciseDTO;
+import com.example.rgks_rear.dto.LoginDTO;
+import com.example.rgks_rear.dto.QueryExerciseDTO;
+import com.example.rgks_rear.dto.SaveExerciseDTO;
+import com.example.rgks_rear.pojo.Exercise;
+import com.example.rgks_rear.service.IExerciseService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
+
+/**
+ * <p>
+ * 面试题表 前端控制器
+ * </p>
+ *
+ * @author 软工课设车队！
+ * @since 2021-05-15
+ */
+@RestController
+@RequestMapping("/exercise")
+public class ExerciseController {
+
+    @Autowired
+    IExerciseService exerciseService;
+
+    @PostMapping("save")
+    public SaveExerciseDTO Save(Exercise exercise){
+        SaveExerciseDTO saveExerciseDTO=new SaveExerciseDTO();
+        boolean b = exerciseService.save(exercise);
+        saveExerciseDTO.setExercise(exercise);
+        if(b){
+            saveExerciseDTO.setMsg(Constant.MsgSaveSuccess);
+            saveExerciseDTO.setRespCode(Constant.SaveSuccess);
+        }else{
+            saveExerciseDTO.setMsg(Constant.MsgNotChange);
+            saveExerciseDTO.setRespCode(Constant.NotChange);
+        }
+        return saveExerciseDTO;
+    }
+
+    @GetMapping("query")
+    public QueryExerciseDTO Query(Long exerciseId){
+        QueryExerciseDTO queryExerciseDTO=new QueryExerciseDTO();
+        Exercise exercise = exerciseService.getById(exerciseId);
+        queryExerciseDTO.setExercise(exercise);
+        if(exercise!=null){
+            queryExerciseDTO.setMsg(Constant.MsgQuerySuccess);
+            queryExerciseDTO.setRespCode(Constant.QuerySuccess);
+        }else{
+            queryExerciseDTO.setMsg(Constant.MsgQueryFail);
+            queryExerciseDTO.setRespCode(Constant.QueryFail);
+        }
+        return queryExerciseDTO;
+    }
+
+    @GetMapping("delete")
+    public DeleteExerciseDTO Delete(Long exerciseId){
+        DeleteExerciseDTO deleteExerciseDTO=new DeleteExerciseDTO();
+        boolean b = exerciseService.removeById(exerciseId);
+        if(b){
+            deleteExerciseDTO.setMsg(Constant.MsgDeleteSuccess);
+            deleteExerciseDTO.setRespCode(Constant.DeleteSuccess);
+        }else{
+            deleteExerciseDTO.setMsg(Constant.MsgDeleteFail);
+            deleteExerciseDTO.setRespCode(Constant.DeleteFail);
+        }
+        return deleteExerciseDTO;
+    }
+
+
+}

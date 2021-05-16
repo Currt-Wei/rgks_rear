@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>车队</title>
+    <link rel="stylesheet" th:href="@{/webjars/layui/css/layui.css}">
+</head>
+<body>
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-md12" style="height: 200px">
+            </div>
+            <div class="layui-col-md6 layui-col-md-offset5">
+                <h1>软工课设</h1>
+            </div>
+            <div class="layui-col-md12" style="height: 30px">
+            </div>
+        </div>
+        <div class="layui-row">
+            <div class="layui-col-md6 layui-col-md-offset3">
+                <form class="layui-form"  method="post" th:action="@{/index/login}">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">邮箱</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="email" required lay-verify="required"
+                                   placeholder="请输入邮箱" autocomplete="off" class="layui-input" th:value="123rgks.com">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">密&nbsp;码</label>
+                        <div class="layui-input-block">
+                            <input type="password" name="password" required
+                                   lay-verify="required" placeholder="请输入密码" autocomplete="off"
+                                   class="layui-input" th:value="123456">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <div class="layui-input-block">
+                            <button class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/webjars/layui/layui.all.js}"></script>
+</body>
+</html>

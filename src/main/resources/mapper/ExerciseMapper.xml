@@ -1,58 +1,26 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.rgks_rear.dao.ExerciseMapper">
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.rgks_rear.mapper.ExerciseMapper">
 
-    <resultMap id="BaseResultMap" type="com.xymall.baby.entity.User">
-        <id column="id" jdbcType="INTEGER" property="userId" />
-        <result column="username" jdbcType="VARCHAR" property="userName" />
-        <result column="password" jdbcType="VARCHAR" property="password" />
-        <result column="email" jdbcType="VARCHAR" property="email" />
-        <result column="active" jdbcType="BOOLEAN" property="active" />
-        <result column="address" jdbcType="VARCHAR" property="address"/>
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.example.rgks_rear.pojo.Exercise">
+        <id column="exercise_id" property="exerciseId" />
+        <result column="title" property="title" />
+        <result column="teacher_id" property="teacherId" />
+        <result column="url" property="url" />
+        <result column="content" property="content" />
+        <result column="student_id" property="studentId" />
+        <result column="is_finished" property="isFinished" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="type_of_code" property="typeOfCode" />
+        <result column="code" property="code" />
+        <result column="create_time" property="createTime" />
+        <result column="modified_time" property="modifiedTime" />
     </resultMap>
-<!--    <select id="login" resultMap="BaseResultMap" >-->
-<!--        select-->
-<!--        <include refid="Base_Column_List"/>-->
-<!--        from user-->
-<!--        where username=#{userName} and password=#{password} and active=true;-->
-<!--    </select>-->
-    <sql id="Base_Column_List">
-        id,comment_type,reply_id,receive_id
-    </sql>
-    <insert id="insertExercise">
-        insert into user(username,password,email,verifyCode,active) values (#{userName},#{password},#{email},null,true);
-    </insert>
 
-    <insert id="insertSelective" parameterType="com.example.rgks_rear.entity.Exercise">
-        insert into user
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                id,
-            </if>
-            <if test="userName != null">
-                username,
-            </if>
-            <if test="password != null">
-                password,
-            </if>
-            <if test="active != null">
-                active,
-            </if>
-        </trim>
-        <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="userId != null">
-                #{userId},
-            </if>
-            <if test="userName != null">
-                #{userName,jdbcType=VARCHAR},
-            </if>
-            <if test="password != null">
-                #{password,jdbcType=VARCHAR},
-            </if>
-            <if test="active != null">
-                #{active,jdbcType=TINYINT},
-            </if>
-        </trim>
-    </insert>
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        exercise_id, title, teacher_id, url, content, student_id, is_finished, is_deleted, type_of_code, code, create_time, modified_time
+    </sql>
 
 </mapper>
