@@ -1,12 +1,12 @@
 package com.example.rgks_rear.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.example.rgks_rear.common.Constant;
-import com.example.rgks_rear.dto.DeleteExerciseDTO;
-import com.example.rgks_rear.dto.LoginDTO;
-import com.example.rgks_rear.dto.QueryExerciseDTO;
-import com.example.rgks_rear.dto.SaveExerciseDTO;
+import com.example.rgks_rear.dto.*;
+import com.example.rgks_rear.mapper.ExerciseMapper;
 import com.example.rgks_rear.pojo.Exercise;
 import com.example.rgks_rear.service.IExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * <p>
@@ -77,5 +78,25 @@ public class ExerciseController {
         return deleteExerciseDTO;
     }
 
+    @GetMapping("teacher")
+    public QueryTeacherExerciseDTO QueryByTeacherId(Long teacherId){
+        QueryTeacherExerciseDTO q=new QueryTeacherExerciseDTO();
+        LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getTeacherId, teacherId);
+        List<Exercise> exercises = eq.list();
+        q.setItems(exercises);
+        q.setMsg(Constant.MsgQuerySuccess);
+        q.setRespCode(Constant.QuerySuccess);
+        return q;
+    }
 
+    @GetMapping("student")
+    public QueryStudentExerciseDTO QueryByStudentId(Long studentId){
+        QueryStudentExerciseDTO q=new QueryStudentExerciseDTO();
+        LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getStudentId, studentId);
+        List<Exercise> exercises = eq.list();
+        q.setItems(exercises);
+        q.setMsg(Constant.MsgQuerySuccess);
+        q.setRespCode(Constant.QuerySuccess);
+        return q;
+    }
 }
