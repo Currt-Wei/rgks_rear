@@ -19,6 +19,8 @@ import java.util.List;
  * @author 软工课设车队！
  * @since 2021-05-15
  */
+
+@CrossOrigin
 @RestController
 @RequestMapping("/comment")
 public class CommentController {

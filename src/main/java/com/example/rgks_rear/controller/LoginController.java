@@ -7,13 +7,10 @@ import com.example.rgks_rear.pojo.User;
 import com.example.rgks_rear.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
+@CrossOrigin
 @RestController
 @RequestMapping("index")
 public class LoginController {
