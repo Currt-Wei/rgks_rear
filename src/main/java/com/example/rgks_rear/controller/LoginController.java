@@ -18,13 +18,12 @@ public class LoginController {
     private IUserService userService;
 
     @PostMapping("login")
-    public LoginDTO login(String email, String password, HttpSession session, Model model){
+    public LoginDTO login(String email, String password){
         LoginDTO loginDTO=userService.login(email,password);
-        String res=loginDTO.getRespCode();
-        if(res=="200"){
-            session.setAttribute("user_id",loginDTO.getUser().getUserId());
-            model.addAttribute("user",loginDTO.getUser());
-        }
+//        String res=loginDTO.getRespCode();
+//        if(res=="200"){
+//            session.setAttribute("user_id",loginDTO.getUser().getUserId());
+//        }
         return loginDTO;
     }
 
