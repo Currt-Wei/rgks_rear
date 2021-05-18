@@ -65,4 +65,7 @@ public class Comment implements Serializable {
         this.exerciseId=exerciseId;
         this.commentType=commentType;
     }
+    public Comment(){
+
+    }
 }
