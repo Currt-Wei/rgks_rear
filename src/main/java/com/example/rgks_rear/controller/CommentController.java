@@ -29,8 +29,7 @@ public class CommentController {
     ICommentService commentService;
 
     @PostMapping("/save")
-    public SaveCommentDTO SaveComment(Long commentType,Long replyId,Long receiveId,String content,Long exerciseId ){
-        Comment comment=new Comment(content,replyId,receiveId,exerciseId,commentType);
+    public SaveCommentDTO SaveComment( @RequestBody Comment comment ){
         SaveCommentDTO saveCommentDTO=new SaveCommentDTO();
         boolean b = commentService.save(comment);
         if(b){
