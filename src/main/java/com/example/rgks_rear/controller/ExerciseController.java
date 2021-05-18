@@ -38,7 +38,7 @@ public class ExerciseController {
     IExerciseService exerciseService;
 
     @PostMapping("save")
-    public SaveExerciseDTO Save(Exercise exercise){
+    public SaveExerciseDTO Save(@RequestBody Exercise exercise){
         SaveExerciseDTO saveExerciseDTO=new SaveExerciseDTO();
         boolean b = exerciseService.save(exercise);
         saveExerciseDTO.setExercise(exercise);
