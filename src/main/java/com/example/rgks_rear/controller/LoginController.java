@@ -38,15 +38,22 @@ public class LoginController {
 
     @PostMapping("register")
     public RegisterDTO register(@RequestBody User user){
-        boolean success=userService.save(user);
         RegisterDTO registerDTO=new RegisterDTO();
+        User user1=userService.lambdaQuery().eq(User::getEmail,user.getEmail()).one();
+        if(user1!=null){
+            registerDTO.setRespCode("400");
+            registerDTO.setMsg("邮箱已存在，请重新输入！");
+            return registerDTO;
+        }
+        boolean success=userService.save(user);
+
         if(success){
             registerDTO.setRespCode("200");
-            registerDTO.setMsg("插入数据成功");
+            registerDTO.setMsg("注册功");
             return registerDTO;
         }
         registerDTO.setRespCode("400");
-        registerDTO.setMsg("插入数据失败");
+        registerDTO.setMsg("注册失败");
         return registerDTO;
     }
 }
