@@ -53,7 +53,7 @@ public class ExerciseController {
     }
 
     @GetMapping("query")
-    public QueryExerciseDTO Query(Long exerciseId){
+    public QueryExerciseDTO Query(@RequestParam(name = "exerciseId") Long exerciseId){
         QueryExerciseDTO queryExerciseDTO=new QueryExerciseDTO();
         Exercise exercise = exerciseService.getById(exerciseId);
         queryExerciseDTO.setExercise(exercise);
@@ -68,7 +68,7 @@ public class ExerciseController {
     }
 
     @GetMapping("delete")
-    public DeleteExerciseDTO Delete(Long exerciseId){
+    public DeleteExerciseDTO Delete(@RequestParam(name = "exerciseId")Long exerciseId){
         DeleteExerciseDTO deleteExerciseDTO=new DeleteExerciseDTO();
         boolean b = exerciseService.removeById(exerciseId);
         if(b){
@@ -82,7 +82,7 @@ public class ExerciseController {
     }
 
     @GetMapping("teacher")
-    public QueryTeacherExerciseDTO QueryByTeacherId(Long teacherId){
+    public QueryTeacherExerciseDTO QueryByTeacherId(@RequestParam(name = "teacherId") Long teacherId){
         QueryTeacherExerciseDTO q=new QueryTeacherExerciseDTO();
         LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getTeacherId, teacherId);
         List<Exercise> exercises = eq.list();
@@ -93,7 +93,7 @@ public class ExerciseController {
     }
 
     @GetMapping("student")
-    public QueryStudentExerciseDTO QueryByStudentId(Long studentId){
+    public QueryStudentExerciseDTO QueryByStudentId(@RequestParam(name = "studentId")Long studentId){
         QueryStudentExerciseDTO q=new QueryStudentExerciseDTO();
         LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getStudentId, studentId);
         List<Exercise> exercises = eq.list();
