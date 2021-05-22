@@ -38,7 +38,7 @@ public class ExerciseController {
     IExerciseService exerciseService;
 
     @PostMapping("save")
-    public SaveExerciseDTO Save(@RequestBody Exercise exercise){
+    public SaveExerciseDTO Save( Exercise exercise){
         SaveExerciseDTO saveExerciseDTO=new SaveExerciseDTO();
         boolean b = exerciseService.save(exercise);
         saveExerciseDTO.setExercise(exercise);
@@ -52,8 +52,9 @@ public class ExerciseController {
         return saveExerciseDTO;
     }
 
+
     @GetMapping("query")
-    public QueryExerciseDTO Query(@RequestParam(name = "exerciseId") Long exerciseId){
+    public QueryExerciseDTO Query( Long exerciseId){
         QueryExerciseDTO queryExerciseDTO=new QueryExerciseDTO();
         Exercise exercise = exerciseService.getById(exerciseId);
         queryExerciseDTO.setExercise(exercise);
@@ -81,21 +82,10 @@ public class ExerciseController {
         return deleteExerciseDTO;
     }
 
-    @GetMapping("teacher")
-    public QueryTeacherExerciseDTO QueryByTeacherId(@RequestParam(name = "teacherId") Long teacherId){
-        QueryTeacherExerciseDTO q=new QueryTeacherExerciseDTO();
-        LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getTeacherId, teacherId);
-        List<Exercise> exercises = eq.list();
-        q.setItems(exercises);
-        q.setMsg(Constant.MsgQuerySuccess);
-        q.setRespCode(Constant.QuerySuccess);
-        return q;
-    }
-
-    @GetMapping("student")
-    public QueryStudentExerciseDTO QueryByStudentId(@RequestParam(name = "studentId")Long studentId){
+    @GetMapping("query_by_user")
+    public QueryStudentExerciseDTO QueryByUserId(@RequestParam(name = "userId")Long userId){
         QueryStudentExerciseDTO q=new QueryStudentExerciseDTO();
-        LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getStudentId, studentId);
+        LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getStudentId, userId).or().eq(Exercise::getTeacherId, userId).orderBy(true,true,Exercise::getExerciseId);
         List<Exercise> exercises = eq.list();
         q.setItems(exercises);
         q.setMsg(Constant.MsgQuerySuccess);
