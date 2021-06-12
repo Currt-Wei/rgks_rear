@@ -11,6 +11,8 @@ import com.example.rgks_rear.pojo.Exercise;
 import com.example.rgks_rear.pojo.User;
 import com.example.rgks_rear.service.IExerciseService;
 import com.example.rgks_rear.service.IUserService;
+//import jdk.incubator.jpackage.internal.Log;
+//import com.sun.tools.sjavac.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -93,7 +95,7 @@ public class ExerciseController {
         return q;
     }
 
-    @PostMapping("invite")
+    @GetMapping("invite")
     public InviteDTO Invite(String email,Long exerciseId){
         User student=userService.lambdaQuery().eq(User::getEmail,email).one();
         Exercise exercise=exerciseService.getById(exerciseId);
