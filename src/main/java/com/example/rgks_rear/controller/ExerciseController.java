@@ -99,6 +99,14 @@ public class ExerciseController {
     public InviteDTO Invite(String email,Long exerciseId){
         User student=userService.lambdaQuery().eq(User::getEmail,email).one();
         Exercise exercise=exerciseService.getById(exerciseId);
+
+        if(student==null||exercise==null){
+            InviteDTO inviteDTO=new InviteDTO();
+            inviteDTO.setRespCode(Constant.QuerySuccess);
+            inviteDTO.setMsg("邀请失败,请确认邀请人的邮箱、面试题是否存在!");
+            return inviteDTO;
+        }
+
         exercise.setStudentId(student.getUserId());
         boolean success=exerciseService.saveOrUpdate(exercise);
         InviteDTO inviteDTO=new InviteDTO();
