@@ -7,6 +7,7 @@ import com.example.rgks_rear.mapper.UserMapper;
 import com.example.rgks_rear.pojo.User;
 import com.example.rgks_rear.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -41,7 +42,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             return loginDTO;
         }
         String token=UUID.randomUUID().toString().replaceAll("-", "");
-        stringRedisTemplate.opsForValue().set(token, String.valueOf(u.getId()), 3600, TimeUnit.SECONDS);//将用户的ID信息存入redis缓存，并设置一小时的过期时间
+        stringRedisTemplate.opsForValue().set(token, String.valueOf(user.getUserId()), 3600, TimeUnit.SECONDS);//将用户的ID信息存入redis缓存，并设置一小时的过期时间
         loginDTO.setToken(token);
         loginDTO.setRespCode("200");
         loginDTO.setMsg("登陆成功");
