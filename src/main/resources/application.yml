@@ -2,6 +2,10 @@ server:
   port: 8088
 
 spring:
+  #redis
+  redis:
+    host: localhost
+    port: 6379
   #thymeleaf配置
   thymeleaf:
     #关闭缓存

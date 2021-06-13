@@ -11,4 +11,6 @@ public class LoginDTO {
     private String msg;
     //user
     private User user;
+    //token
+    private String token;
 }
