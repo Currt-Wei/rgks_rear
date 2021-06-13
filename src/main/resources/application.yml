@@ -10,7 +10,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/rgks?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
     username: root
-    password: root
+    # TODO 需要修改密码 我的密码并不是root
+    password: 12345678
     hikari:
       #连接池名
       pool-name: DateHikariCP
