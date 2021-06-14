@@ -6,6 +6,7 @@ import com.example.rgks_rear.dto.RegisterDTO;
 import com.example.rgks_rear.pojo.User;
 import com.example.rgks_rear.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
  import javax.servlet.http.HttpServletRequest;
@@ -14,6 +15,9 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("index")
 public class LoginController {
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
+
     @Autowired
     private IUserService userService;
 
@@ -55,6 +59,20 @@ public class LoginController {
         registerDTO.setRespCode("400");
         registerDTO.setMsg("注册失败");
         return registerDTO;
+    }
+
+    @PostMapping("getUser")
+    public User login(@RequestBody String token){
+        String id = stringRedisTemplate.opsForValue().get(token);
+        System.out.println(id);
+        User user=new User();
+        if(id!=null){
+            user=userService.lambdaQuery().eq(User::getUserId,id).one();
+            return user;
+        }else{
+            System.out.println("token过期");
+            return user;
+        }
     }
 }
 

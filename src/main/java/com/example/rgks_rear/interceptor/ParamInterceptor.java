@@ -22,6 +22,7 @@ public class ParamInterceptor implements HandlerInterceptor {
         //token验证
         if(token!=null){
             String id = stringRedisTemplate.opsForValue().get(token);
+            System.out.println(id);
             if(id!=null){
                 System.out.println("token验证成功");
                 return true;
