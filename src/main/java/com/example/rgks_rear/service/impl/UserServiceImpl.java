@@ -49,4 +49,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         loginDTO.setUser(user);
         return loginDTO;
     }
+
+    public User getUser(String token){
+        String id = stringRedisTemplate.opsForValue().get(token);
+        System.out.println(id);
+        User user=new User();
+        if(id!=null){
+            user=lambdaQuery().eq(User::getUserId,id).one();
+            return user;
+        }else{
+            System.out.println("token过期");
+            return user;
+        }
+    }
 }
