@@ -61,8 +61,9 @@ public class LoginController {
         return registerDTO;
     }
 
-    @PostMapping("getUser")
-    public User login(@RequestBody String token){
+    @GetMapping("getUser")
+    public User login(String token){
+        System.out.println(token);
         String id = stringRedisTemplate.opsForValue().get(token);
         System.out.println(id);
         User user=new User();
