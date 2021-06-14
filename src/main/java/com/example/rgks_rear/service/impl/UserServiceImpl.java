@@ -43,6 +43,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         String token=UUID.randomUUID().toString().replaceAll("-", "");
         stringRedisTemplate.opsForValue().set(token, String.valueOf(user.getUserId()), 3600, TimeUnit.SECONDS);//将用户的ID信息存入redis缓存，并设置一小时的过期时间
+        String id = stringRedisTemplate.opsForValue().get(token);
+        System.out.println(id);
         loginDTO.setToken(token);
         loginDTO.setRespCode("200");
         loginDTO.setMsg("登陆成功");

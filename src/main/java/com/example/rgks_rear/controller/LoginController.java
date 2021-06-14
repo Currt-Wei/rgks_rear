@@ -15,6 +15,8 @@ import javax.servlet.http.HttpSession;
 @RestController
 @RequestMapping("index")
 public class LoginController {
+    @Autowired
+    private StringRedisTemplate stringRedisTemplate;
 
     @Autowired
     private IUserService userService;
@@ -59,9 +61,20 @@ public class LoginController {
         return registerDTO;
     }
 
-    @PostMapping("getUser")
-    public User getUser(@RequestBody String token){
-        return userService.getUser(token);
+
+    @GetMapping("getUser")
+    public User login(String token){
+        System.out.println(token);
+        String id = stringRedisTemplate.opsForValue().get(token);
+        System.out.println(id);
+        User user=new User();
+        if(id!=null){
+            user=userService.lambdaQuery().eq(User::getUserId,id).one();
+            return user;
+        }else{
+            System.out.println("token过期");
+            return user;
+        }
 
     }
 }
