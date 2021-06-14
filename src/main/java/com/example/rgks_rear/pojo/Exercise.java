@@ -101,4 +101,8 @@ public class Exercise implements Serializable {
         this.createTime=createTime;
         this.modifiedTime=modifiedTime;
     }
+
+    public Exercise(){
+
+    }
 }
