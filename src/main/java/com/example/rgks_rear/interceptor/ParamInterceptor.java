@@ -19,6 +19,8 @@ public class ParamInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String token = httpServletRequest.getHeader("token");
+        httpServletResponse.setHeader("Access-Control-Allow-Origin", "*");
+
         //token验证
         if(token!=null){
             String id = stringRedisTemplate.opsForValue().get(token);
