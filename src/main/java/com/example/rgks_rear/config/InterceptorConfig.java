@@ -14,7 +14,8 @@ public class InterceptorConfig extends WebMvcConfigurationSupport {
 
     public void addInterceptors(InterceptorRegistry registry) {
         //此处配置拦截路径
-        registry.addInterceptor(paramInterceptor).addPathPatterns("/**").excludePathPatterns("/index/*");
+        registry.addInterceptor(paramInterceptor).addPathPatterns("/**").excludePathPatterns("/index/*")
+                .excludePathPatterns("/exercise/query");
     }
 
 }
