@@ -4,6 +4,7 @@ import cn.hutool.crypto.digest.MD5;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.rgks_rear.dto.LoginDTO;
 import com.example.rgks_rear.mapper.UserMapper;
+import com.example.rgks_rear.pojo.Exercise;
 import com.example.rgks_rear.pojo.User;
 import com.example.rgks_rear.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,5 +64,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             System.out.println("token过期");
             return user;
         }
+    }
+
+    public User getUserById(Long userId){
+        User curr= lambdaQuery().eq(User::getUserId, userId).one();
+        return curr;
     }
 }
