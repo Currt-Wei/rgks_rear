@@ -15,4 +15,5 @@ import com.example.rgks_rear.pojo.User;
 public interface IUserService extends IService<User> {
     public LoginDTO login(String email, String password);
     public User getUser(String token);
+    public User getUserById(Long userId);
 }
