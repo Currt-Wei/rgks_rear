@@ -48,22 +48,26 @@ public class Comment implements Serializable {
 
     private Long commentType;
 
-    public Comment(String content,Long replyId,Long receiveId,Long exerciseId,Long commentType){
+    private String createTime;
+
+    public Comment(String content,Long replyId,Long receiveId,Long exerciseId,Long commentType,String createTime){
         this.content=content;
         this.replyId=replyId;
         this.receiveId=receiveId;
         this.exerciseId=exerciseId;
         this.commentType=commentType;
+        this.createTime=createTime;
     }
     // 这里注意并不能删去，因为会影响mybatis查找后返回结果时的回填。
     // 具体报错 mybatis参数格式化异常:NumberFormatException: For input string:"xx"，将commentId填入到了content里面导致异常
-    public Comment(Long commentId,String content,Long replyId,Long receiveId,Long exerciseId,Long commentType){
+    public Comment(Long commentId,String content,Long replyId,Long receiveId,Long exerciseId,Long commentType,String createTime){
         this.commentId=commentId;
         this.content=content;
         this.replyId=replyId;
         this.receiveId=receiveId;
         this.exerciseId=exerciseId;
         this.commentType=commentType;
+        this.createTime=createTime;
     }
     public Comment(){
 
