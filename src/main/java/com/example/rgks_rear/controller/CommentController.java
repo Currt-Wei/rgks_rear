@@ -9,6 +9,8 @@ import com.example.rgks_rear.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -48,6 +50,12 @@ public class CommentController {
     public ExerciseQueryCommentDTO ExerciseQueryComment(Long exerciseId){
         ExerciseQueryCommentDTO exerciseQueryCommentDTO=new ExerciseQueryCommentDTO();
         List<Comment> comments = commentService.lambdaQuery().eq(Comment::getExerciseId,exerciseId).orderByAsc(Comment::getCommentId).list();
+        comments.sort(new Comparator<Comment>() {
+            @Override
+            public int compare(Comment o1, Comment o2) {
+                return o1.getCreateTime().compareTo(o2.getCreateTime());
+            }
+        });
         exerciseQueryCommentDTO.setComments(comments);
         exerciseQueryCommentDTO.setRespCode(Constant.QuerySuccess);
         exerciseQueryCommentDTO.setMsg(Constant.MsgQuerySuccess);

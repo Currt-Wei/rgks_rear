@@ -18,6 +18,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -89,6 +90,12 @@ public class ExerciseController {
         QueryStudentExerciseDTO q=new QueryStudentExerciseDTO();
         LambdaQueryChainWrapper<Exercise> eq = exerciseService.lambdaQuery().eq(Exercise::getStudentId, userId).or().eq(Exercise::getTeacherId, userId).orderBy(true,true,Exercise::getExerciseId);
         List<Exercise> exercises = eq.list();
+        exercises.sort(new Comparator<Exercise>() {
+            @Override
+            public int compare(Exercise o1, Exercise o2) {
+                return o1.getExerciseId().intValue()-o2.getExerciseId().intValue();
+            }
+        });
         q.setItems(exercises);
         q.setMsg(Constant.MsgQuerySuccess);
         q.setRespCode(Constant.QuerySuccess);
