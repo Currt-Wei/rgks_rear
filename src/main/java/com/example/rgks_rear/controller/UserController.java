@@ -34,7 +34,6 @@ public class UserController {
     public UserDTO Query(Long userId){
         UserDTO userDTO=new UserDTO();
         User user = userService.getUserById(userId);
-        userDTO.setUser(user);
         if(user!=null){
             userDTO.setMsg(Constant.MsgQuerySuccess);
             userDTO.setRespCode(Constant.QuerySuccess);
@@ -42,6 +41,9 @@ public class UserController {
             userDTO.setMsg(Constant.MsgQueryFail);
             userDTO.setRespCode(Constant.QueryFail);
         }
+        User res=new User();
+        res.setNickName(user.getNickName());
+        userDTO.setUser(res);
         return userDTO;
     }
 }
