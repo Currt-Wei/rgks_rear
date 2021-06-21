@@ -53,7 +53,7 @@ public class LoginController {
 
         if(success){
             registerDTO.setRespCode("200");
-            registerDTO.setMsg("注册功");
+            registerDTO.setMsg("注册成功");
             return registerDTO;
         }
         registerDTO.setRespCode("400");
